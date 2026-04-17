@@ -8,6 +8,11 @@ This project aims to provide a comprehensive resource for understanding and test
 Goal: To explain XSS vulnerabilities from the OWASP Top 10 lists and provide a beneficial study for the security world.
 
 📂 Project Structure
+
+
+
+
+
 Payloads/: A vast collection of XSS payloads categorized by type and use case.
 Basic/: Fundamental payloads for testing standard injection points.
 Bypass/: Techniques to bypass WAFs and filters (Encoding, Obfuscation).
