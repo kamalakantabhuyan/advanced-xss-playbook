@@ -1,0 +1,40 @@
+# Svelte XSS & Injection Scenarios
+
+Note:
+Svelte escapes values by default. XSS vulnerabilities arise when using {@html}
+or rendering untrusted data in attributes or server-side scripts.
+
+# Purpose:
+# Demonstrates how XSS can occur in Svelte when unsafe features are used.
+
+⚠️ For educational and authorized testing only.
+
+----------------------------------------
+1. {@html} Injection
+Payload:
+{@html "<img src=x onerror=alert(1)>"}
+Description: Renders raw HTML without escaping.
+Use Case: If user input is passed directly to {@html}.
+
+----------------------------------------
+2. JavaScript URI Injection
+Payload:
+<a href="javascript:alert(1)">Click me</a>
+Description: Executes JavaScript via link.
+Use Case: When user controls href values.
+
+----------------------------------------
+3. Dynamic Attribute Injection
+Payload:
+<a href={userInput}>Link</a>
+Description: Binds user input to attribute.
+Use Case: If input contains "javascript:" or malicious URL.
+
+----------------------------------------
+4. Server-Side Rendering (SSR) Injection
+Payload:
+<script>window.init = ${JSON.stringify(data)}</script>
+Description: Injects serialized data into script.
+Use Case: If not properly escaped → leads to XSS.
+
+----------------------------------------

