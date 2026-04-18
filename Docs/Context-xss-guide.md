@@ -16,3 +16,32 @@ Understanding the context where your input is reflected is crucial for successfu
     Payload: "><script>alert(1)</script> Why?
     You need to break out of the attribute string (") and the tag(<) to start a new script tag.
     Alternative: "onmoueover=alert(1)autofocus=" (Uses event handler without breaking the tag).
+
+3.JavaScript Context:
+
+    Input is placed inside a <script> block. Example: <script>var x = 'USER_INPUT';</script> Payload: '; alert(1); // Why? You need to terminate the existing string      (') and the statement (;), then execute your code. The // comments out the rest of the line.
+
+ 4.URL Context:
+
+    Input is placed inside an href or src attribute. Example: <a href="USER_INPUT">Click</a> Payload: javascript:alert(1) Why? The browser executes the javascript:  pseudo-protocol.
+
+
+
+Filter Evasion Tips :
+   
+   1. HTML Entities: <  becomes &lt; 
+   (Browser decodes entities in attributes).
+   2. URL Encoding: %3C becomes < (Backend might decode).
+   3. Case Sensitivity: <ScRiPt> might pypass case-sensitive regex.
+
+
+
+
+
+
+
+
+
+
+    
+    
