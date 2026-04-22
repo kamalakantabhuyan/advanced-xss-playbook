@@ -1,0 +1,48 @@
+# React XSS & Injection Scenarios
+
+Note:
+React prevents XSS by escaping output. Vulnerabilities occur only when
+developers bypass protections using dangerouslySetInnerHTML, eval, or direct DOM manipulation.
+
+# Purpose:
+# Demonstrates how XSS can occur in React applications when developers
+# bypass built-in protections.
+
+⚠️ For educational and authorized testing only.
+
+----------------------------------------
+1. dangerouslySetInnerHTML Injection
+Payload:
+<div dangerouslySetInnerHTML={{__html: '<img src=x onerror=alert(1)>'}} />
+Description: Injects raw HTML into DOM.
+Use Case: When untrusted user input is passed directly.
+
+----------------------------------------
+2. JavaScript URI Injection
+Payload:
+<a href="javascript:alert(1)">Click me</a>
+Description: Executes JavaScript via href attribute.
+Use Case: When user controls link values.
+
+----------------------------------------
+3. Dynamic href Injection
+Payload:
+<a href={userInput}>link</a>
+Description: User-controlled URL rendered directly.
+Use Case: If input contains "javascript:" or malicious URL.
+
+----------------------------------------
+4. Props Injection
+Payload:
+<div {...userProps} />
+Description: Spreads user-controlled props into element.
+Use Case: Can inject event handlers or unsafe attributes.
+
+----------------------------------------
+5. Server-Side Rendering (SSR) Injection
+Payload:
+<script>window.__PRELOADED_STATE__ = ${JSON.stringify(userObject)}</script>
+Description: Injects serialized data into script.
+Use Case: If not properly escaped → leads to XSS.
+
+----------------------------------------

